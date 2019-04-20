@@ -1,0 +1,94 @@
+<header id="main-header" class="py-2 bg-primary text-white">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+
+        <h1><i class="fas fa-pencil-alt"></i>Posts</h1>
+      </div>
+    </div>
+  </div>
+</header>
+<section id="search" class="actions py-4 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 ml-auto">
+        <div class="input-group">
+          <input type="text" [(ngModel)]="searchValue" placeholder="Search Posts..." class="form-control">
+          <div class="div-input-group-append">
+            <button class="btn btn-primary">Search</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+<section id="posts" class="py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h4>All Posts</h4>
+          </div>
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>
+                  #
+                </th>
+                <th appSort (click)="reverseTitle=!reverseTitle" [sortKey]="'title'" [data]="posts">
+                  Title
+                  <i [hidden]="reverseTitle" ngClass='fas fa-angle-up'></i>
+                  <i [hidden]="!reverseTitle" ngClass='fas fa-angle-down'></i>
+                </th>
+
+                <th>
+                  Category
+                </th>
+                <th appSort [sortKey]="'date'" [data]="posts">
+                  Date
+                </th>
+                <th>
+                  #
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor=" let post of posts | searchPipe:'title':searchValue">
+                <td>{{post.id}}</td>
+                <td>{{post.title}}</td>
+                <td>{{post.category}}</td>
+                <td>{{post.date}}</td>
+                <td><a href=" #" [routerLink]="['/postedit',post.id]" class="btn btn-secondary"><i
+                      class="fas fa-angle-double-right"></i>Details</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <nav class="ml-4">
+            <ul class="pagination">
+              <li class="page-item disabled">
+                <a href="" class="page-link">Previous</a>
+              </li>
+              <li class="page-item ">
+                <a href="" class="page-link">1</a>
+              </li>
+              <li class="page-item ">
+                <a href="" class="page-link">2</a>
+              </li>
+              <li class="page-item ">
+                <a href="" class="page-link">3</a>
+              </li>
+              <li class="page-item ">
+                <a href="" class="page-link">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+<section id="blog" class="py-3">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="card-columns">
+
+          <div class="card" *ngFor="let post of posts;let i = index">
+            <img src="https://source.unsplash.com/random/301x200" alt="" class="img-fluid card-img-top">
+            <div class="card-body ">
+              <h4 class="card-title">{{post.title}}</h4>
+              <small class="text-muted">Written by Karen on {{post.date}}</small>
+              <hr>
+              <p class="card-text">{{post.blogPost |truncPipe}}
+
+              </p>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

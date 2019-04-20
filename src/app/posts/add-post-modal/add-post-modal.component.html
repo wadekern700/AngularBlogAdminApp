@@ -1,0 +1,42 @@
+<div class="modal-header bg-primary text-white">
+  <h5 class="modal-title ">
+    Add Post </h5>
+  <a class="close btn-outline-primary" style="cursor:pointer" (click)="close()"><span>&times;</span></a>
+</div>
+<form #AddPostForm="ngForm" (ngSubmit)="onSub()">
+  <div class="modal-body">
+
+    <div class="form-group">
+      <label for="Title">Title</label>
+      <input id="title" ngModel #title="ngModel" required name="title" type="text" class="form-control">
+      <span class="help-block" *ngIf="!title.valid && title.touched">Please Enter a Title</span>
+    </div>
+    <div class="form-group">
+      <label for="Category">Category</label>
+      <select class="form-control" value="Health" ngModel="Health" name="category" id="category" #category="ngModel">
+        <option *ngFor="let cat of categories" value={{cat.title}}>{{cat.title}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="Img">Upload Images</label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="image" (change)="onFileSelected($event)">
+        <label for="file" class="custom-file-label">Choose File</label>
+      </div>
+      <small class="form-text text-muted"> Max Size 3mb</small>
+    </div>
+    <div class="form-group">
+      <label for="body">Body</label>
+      <textarea name="editor1" class="form-control" required ngModel #editor1="ngModel" name="editor1">
+
+        </textarea>
+      <span class="help-block" *ngIf="!editor1.valid && editor1.touched">Please Enter a Title</span>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="submit" [disabled]="!AddPostForm.valid" data-dissmiss="modal">
+      Save Changes
+    </button>
+  </div>
+</form>

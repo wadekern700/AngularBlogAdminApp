@@ -1,0 +1,19 @@
+<div class="modal-header bg-success text-white">
+  <h5 class="modal-title ">
+    Add Category </h5>
+  <a class="close btn-outline-success" style="cursor:pointer" (click)="close()"><span>&times;</span></a>
+</div>
+<form #AddCategoryForm="ngForm" (ngSubmit)="onSub()">
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="Title">Title</label>
+      <input type="text" ngModel #category="ngModel" id="category" name="category" required class="form-control">
+      <span class="help-block" *ngIf="!category.valid && category.touched">Please Enter Category Name </span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-warning" type="submit" [disabled]="!AddCategoryForm.valid" data-dissmiss="modal">
+      Save Changes
+    </button>
+  </div>
+</form>

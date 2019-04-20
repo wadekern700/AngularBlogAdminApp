@@ -1,0 +1,114 @@
+<header id="main-header" class="py-2 bg-primary text-white">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+
+        <h1><i class="fas fa-cog"></i>Dashboard</h1>
+      </div>
+    </div>
+  </div>
+</header>
+<section id="actions" class="actions py-4 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <a class="btn btn-primary btn-block" (click)="openFormModal()"><i class="fas fa-plug"></i>Add Post</a>
+      </div>
+      <div class="col-md-3">
+        <a class="btn btn-success btn-block" (click)="openCategoryModal()"><i class="fas fa-plug"></i>Add
+          Category</a>
+      </div>
+      <div class="col-md-3">
+        <a class="btn btn-warning btn-block" (click)="openUsersModal()" data-toggle="modal"
+          data-target="#addUserModal"><i class="fas fa-plug"></i>Add User</a>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+<section id="posts" class="py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header">
+            <h4>Latest Posts</h4>
+          </div>
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>
+                  #
+                </th>
+                <th>
+                  Title
+                </th>
+                <th>
+                  Category
+                </th>
+                <th>
+                  Date
+                </th>
+                <th>
+                  #
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let post of posts">
+                <td>{{post.id}}</td>
+                <td>{{post.title}}</td>
+                <td>{{post.category}}</td>
+                <td>{{post.date}}</td>
+                <td><a href="#" [routerLink]="['/postedit',post.id]" class="btn btn-secondary"><i
+                      class="fas fa-angle-double-right">Details</i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card bg-primary text-center text-white mb-3 ">
+          <div class="card-body">
+            <h3>Posts</h3>
+            <h4 class="display-4"><i class="fas fa-pencil-alt">{{postCount }}</i></h4>
+            <a href="#" [routerLink]="['/posts']" class="btn btn-outline-light btn-sm">View</a>
+          </div>
+        </div>
+        <div class="card bg-success text-center text-white mb-3 ">
+          <div class="card-body">
+            <h3>Categories</h3>
+            <h4 class="display-4"><i class="fas fa-folder">{{categoryCount}}</i></h4>
+            <a href="#" [routerLink]="['/categories']" class="btn btn-outline-light btn-sm">View</a>
+          </div>
+        </div>
+        <div class="card bg-warning text-center text-white mb-3 ">
+          <div class="card-body">
+            <h3>Users</h3>
+            <h4 class="display-4"><i class="fas fa-users">{{userCount }}</i></h4>
+            <a href="#" [routerLink]="['/users']" class="btn btn-outline-light btn-sm">Users</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button (click)="openFormModal()">Open Modal</button>
+</section>
+<div id="main-footer" class="bg-dark text-white mt-5 p-5">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p class="lead text-center">
+          Copyright &copy; <span id="year"></span>
+          Blogen
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>

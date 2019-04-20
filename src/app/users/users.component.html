@@ -1,0 +1,98 @@
+<header id="main-header" class="py-2 bg-warning text-white">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+
+        <h1><i class="fas fa-users"></i>Users</h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="search" class="actions py-4 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 ml-auto">
+        <div class="input-group">
+          <input type="text" [(ngModel)]="searchValue" placeholder="Search Users By..." class="form-control">
+          <div class="div-input-group-append">
+            <select [(ngModel)]="searchTitle" class="form-control bg-primary text-white">
+              <option selected="selected" value="firstName">First Name</option>
+              <option value="lastName">Last Name</option>
+              <option value="email">Email</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+<section id="users" class="py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h4>Latest Users</h4>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>
+                    First Name
+                  </th>
+                  <th>
+                    Last Name
+                  </th>
+                  <th>
+                    Email
+                  </th>
+
+                  <th>
+                    #
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users | searchPipe:searchTitle:searchValue ">
+                  <td>{{user.firstName}}</td>
+                  <td>{{user.lastName}}</td>
+                  <td>{{user.email}}</td>
+                  <td><button class="btn btn-success m-1" (click)="edit(user.email)"><i
+                        class="fas fa-angle-double-right"></i>Edit</button>
+                    <button class="btn btn-danger m-1" (click)="delete(user.email)"><i
+                        class="fas fa-trash-alt"></i>Delete</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+            <nav class="ml-4">
+              <ul class="pagination">
+                <li class="page-item disabled">
+                  <a href="" class="page-link">Previous</a>
+                </li>
+                <li class="page-item ">
+                  <a href="" class="page-link">1</a>
+                </li>
+                <li class="page-item ">
+                  <a href="" class="page-link">2</a>
+                </li>
+                <li class="page-item ">
+                  <a href="" class="page-link">3</a>
+                </li>
+                <li class="page-item ">
+                  <a href="" class="page-link">Next</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

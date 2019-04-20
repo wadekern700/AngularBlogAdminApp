@@ -1,0 +1,6 @@
+<p *ngIf="!isAuth;else Auth">
+  Please Login
+</p>
+<ng-template #Auth>
+  <p>Welcome!</p>
+</ng-template>

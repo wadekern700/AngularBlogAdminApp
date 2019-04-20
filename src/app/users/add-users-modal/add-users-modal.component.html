@@ -1,0 +1,52 @@
+<div class="modal-header bg-warning text-white">
+  <h5 class="modal-title ">
+    {{title}} </h5>
+  <a class="close btn-outline-warning" style="cursor:pointer" (click)="close()"><span>&times;</span></a>
+</div>
+<form [formGroup]="userForm" (ngSubmit)="onSub()">
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="Title">First Name</label>
+      <input class="form-control" type="text" name="firstName" id="firstName" formControlName="firstName">
+      <span class="help-block" *ngIf="FirstName!=null && FirstName.invalid  && FirstName.touched ">First name
+        required</span>
+    </div>
+    <div class="form-group">
+      <label for="Title">Last Name</label>
+      <input class="form-control" type="text" name="lastName" id="lastName" formControlName="lastName">
+      <span class="help-block" *ngIf="LastName!=null && LastName.invalid  && LastName.touched ">First name
+        required</span>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" formControlName="email" class="form-control">
+      <span class="help-block" *ngIf="Email!=null && Email.errors!=null && Email.errors['emailExists']">Email Already
+        Exists</span>
+    </div>
+    <div class="form-group" [hidden]="editMode">
+      <label for="password">Password</label>
+      <input type="password" formControlName="password" class="form-control">
+      <span class="help-block" *ngIf="Password !=null && Password.invalid  && Password.touched ">Password
+        required</span>
+    </div>
+    <div class="form-group" [hidden]="editMode">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" class="form-control">
+      <span class="help-block"
+        *ngIf="ConfirmPassword!=null && ConfirmPassword.errors!=null && ConfirmPassword.errors['mustMatch']  && ConfirmPassword.touched ">Password
+        does not match</span>
+      <br />
+      <span class="help-block"
+        *ngIf=" ConfirmPassword!=null && ConfirmPassword.errors!=null && ConfirmPassword.errors['required']  && ConfirmPassword.touched ">Password
+        required</span>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" type="submit" [disabled]="this.userForm && userForm.invalid" data-dissmiss="modal">
+      Save Changes
+    </button>
+    <!-- <span *ngIf="!userForm.valid && userForm.touched" class="help-block">Please enter valid data!</span> -->
+  </div>
+</form>
