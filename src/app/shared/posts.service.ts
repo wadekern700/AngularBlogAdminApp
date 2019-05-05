@@ -11,23 +11,28 @@ export class PostService {
 
     constructor(private dataService: DataStorageService, private categoryService: CategoryService) { }
     getPosts() {
-        if (this.posts.length == 0) {
+        if (this.posts && this.posts.length == 0) {
             this.dataService.getPosts().subscribe(e => {
                 console.log("Retrieving Posts Was A success");
-                this.posts = e;
-                this.postEvent.next(this.posts.slice());
+
+
+                if (e) {
+
+                    this.posts = e;
+                    this.postEvent.next(this.posts.slice());
+
+                }
             }, x => console.log("Retrieving Posts caused an error " + x));;
         }
-        else {
+        else if (this.posts) {
             return this.posts.slice();
         }
     }
     updatePost(p: Posts, id: number) {
-        console.log(p);
-        console.log(id);
-        const postIndex = this.posts.findIndex(i => i.id == id);
-        this.posts[postIndex].title = (p.title);
-        this.postEvent.next(this.posts.slice());
+        // const postIndex = this.posts.findIndex(i => i.id == id);
+        // this.posts[postIndex] = p;
+        // this.postEvent.next(this.posts.slice());
+        this.dataService.otherthing(p).subscribe(e => console.log(e), x => console.log(x));;
     }
 
     deletePost(id: number) {

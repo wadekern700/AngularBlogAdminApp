@@ -25,7 +25,10 @@ import { AuthInterceptor } from './shared/auth.interceptor';
 import { HomeComponent } from './home/home.component';
 import { BlogComponent } from './blog/blog.component';
 import { TruncPipe } from './shared/trunc.pipe';
-
+import { AngularFireDatabase, AngularFireAction, AngularFireList } from '@angular/fire/database';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule, AngularFirestore } from '@angular/fire/firestore';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +57,7 @@ import { TruncPipe } from './shared/trunc.pipe';
     FormsModule,
     ReactiveFormsModule, HttpClientModule
   ],
-  providers: [PostResolver, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
+  providers: [PostResolver, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
   entryComponents: [
     AddPostModalComponent, AddCategoryModalComponent, AddUsersModalComponent, LoginModalComponent

@@ -91,7 +91,7 @@ export class AddUsersModalComponent implements OnInit {
     }
     else {
 
-      // this.authService.signupUser(this.Email.value, this.Password.value)
+      this.authService.signupUser(this.Email.value, this.Password.value)
       const use = new Users(this.FirstName.value, this.LastName.value, this.Email.value, this.Password.value);
       this.usersService.addUser(use);
 

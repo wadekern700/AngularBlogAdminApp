@@ -32,24 +32,23 @@
               </div>
               <div class="form-group">
                 <label for="Category">Category</label>
-                <select class="form-control" formControlName="category" name="category">
-                  <option value="Web Development">Web Development</option>
-                  <option value="">Tech Gadgets</option>
-                  <option value="">Business</option>
-                  <option value="">Health & Wellness</option>
+                <select class="form-control" name="category" id="category" formControlName="category">
+                  <option *ngFor="let cat of categories" value={{cat.title}}>{{cat.title}}</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="Img">Upload Image</label>
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="image">
+                  <input type="file" class="custom-file-input">
                   <label for="file" class="custom-file-label">Choose File</label>
                 </div>
-                <small class="form-text text-muted"> Max Size 3mb</small>
+                <small class="form-text text-muted d-inline "> Max Size 3mb</small>
+                <small class="form-text text-muted d-inline ml-3"> <a target="_blank" href={{post.img}}>View Photo</a>
+                </small>
               </div>
               <div class="form-group">
                 <label for="body">Body</label>
-                <textarea name="editor1" formControlName="editor1" class="form-control">
+                <textarea name="blogPost" formControlName="blogPost" class="form-control">
 
                  </textarea>
               </div>

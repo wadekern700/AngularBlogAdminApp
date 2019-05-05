@@ -21,8 +21,8 @@ export class AuthInterceptor implements HttpInterceptor {
     //         }));
     // }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log('Intercepted!', req);
-        // const copiedReq = req.clone({ params: req.params.set('auth', this.aService.getToken()) });
+        ///  console.log('Intercepted!', req);
+        //  const copiedReq = req.clone({ headers: req.headers.set('Access-Control-Allow-Origin', '*'), params: req.params.set('auth', this.aService.getToken()) });
         return next.handle(req);
     }
     constructor(private aService: AuthService) { }
