@@ -62,26 +62,22 @@ export class DataStorageService {
             })));
     }
 
+
     getPosts() {
-        return this.http.get<Posts[]>('https://recipe-ae463.firebaseio.com/posts.json').pipe(
+        return this.http.get<Posts[]>('http://localhost:8080/posts/api').pipe(
             map((results => { console.log(results); return results; })),
             catchError((err => {
                 return throwError(new Error(err));
             })));
     }
-    // getPosts() {
-    //     return this.http.get<Posts[]>('http://localhost:8080/legostore/api').pipe(
-    //         map((results => { console.log(results); return results; })),
-    //         catchError((err => {
-    //             return throwError(new Error(err));
-    //         })));
-    // }
 
     addPosts(posts: Posts[]) {
 
         console.log(posts);
 
-        const req = new HttpRequest('PUT', 'https://recipe-ae463.firebaseio.com/posts.json', posts)
+        const req = new HttpRequest('POST', 'http://localhost:8080/posts/api/addPost', posts[2]);
+        console.log(req);
+
         return this.http.request(req).pipe(
             catchError((err => {
                 console.log(err);
@@ -90,10 +86,7 @@ export class DataStorageService {
         );
     }
     otherthing(post: Posts) {
-
-
-
-        const req = new HttpRequest('PATCH', 'https://recipe-ae463.firebaseio.com/posts/0/.json', post)
+        const req = new HttpRequest('PATCH', 'https://recipe-ae463.firebaseio.com/posts/0/.json', { params: new HttpParams().set('post', post[0]) })
         return this.http.request(req).pipe(
             catchError((err => {
                 console.log(err);
