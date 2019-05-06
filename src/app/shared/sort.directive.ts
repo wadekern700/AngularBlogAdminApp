@@ -9,6 +9,7 @@ export class SortDirective implements OnInit {
   }
 
   @HostListener('click') click(eventData: Event) {
+    console.log("in sort dir")
     console.log(this.data);
     console.log(this.key)
     // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
