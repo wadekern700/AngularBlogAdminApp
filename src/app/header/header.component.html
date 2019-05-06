@@ -35,8 +35,16 @@
           </div>
         </li>
         <li class="nav-item">
-          <a href="login.html" class="nav-link"> <i class="fas fa-user-times"></i>Logout</a>
-          <a href="#" (click)="onRegister()" class="nav-link"> <i class="fas fa-user-times"></i>Login/Register</a>
+
+
+
+          <ng-template [ngIf]="!authService.isAuthenticated()">
+            <a (click)="onRegister()" class="nav-link"> <i class="fas fa-user-times"></i>Login/Register</a>
+          </ng-template>
+
+          <a href="login.html" *ngIf="authService.isAuthenticated()" (click)="onLogout()" class="nav-link"> <i
+              class="fas fa-user-times"></i>Logout</a>
+
         </li>
       </ul>
     </div>

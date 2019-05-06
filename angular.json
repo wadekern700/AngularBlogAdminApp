@@ -24,11 +24,11 @@
             ],
             "styles": [
               "src/styles.css",
-              "../../node_modules/bootstrap/dist/css/bootstrap.css",
-              "../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css",
-              "../../node_modules/@fortawesome/fontawesome-free/css/regular.css",
-              "../../node_modules/@fortawesome/fontawesome-free/css/brands.css",
-              "../../node_modules/@fortawesome/fontawesome-free/css/solid.css"
+              "../AngularBlogAdminApp/node_modules/bootstrap/dist/css/bootstrap.css",
+              "../AngularBlogAdminApp/node_modules/@fortawesome/fontawesome-free/css/fontawesome.css",
+              "../AngularBlogAdminApp/node_modules/@fortawesome/fontawesome-free/css/regular.css",
+              "../AngularBlogAdminApp/node_modules/@fortawesome/fontawesome-free/css/brands.css",
+              "../AngularBlogAdminApp/node_modules/@fortawesome/fontawesome-free/css/solid.css"
             ],
             "scripts": []
           },

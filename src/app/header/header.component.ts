@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
 import { AddUsersModalComponent } from '../users/add-users-modal/add-users-modal.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit {
   private catSub: Subscription;
   modalRef: BsModalRef;
   page: string = "dashboard";
-  constructor(private headerService: HeaderService, private modalService: BsModalService) { }
+  showLogin: true;
+  constructor(private headerService: HeaderService, private modalService: BsModalService, private authService: AuthService) { }
 
   ngOnInit() {
 
