@@ -13,6 +13,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   constructor(private postService: PostService) { }
   posts: Posts[];
   private sub: Subscription;
+  searchTitle = "title";
   ngOnInit() {
     this.posts = this.postService.getPosts();
     this.sub = this.postService.getPostEvent().subscribe((list: Posts[]) => this.posts = list);
