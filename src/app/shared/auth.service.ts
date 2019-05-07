@@ -35,10 +35,27 @@ export class AuthService {
         return promise;
     }
     signupUser(email: string, password: string) {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .catch(
-                error => console.log(error)
-            )
+        var promise = new Promise((resolve, reject) => {
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(
+                    response => {
+
+                        firebase.auth().currentUser.getIdToken()
+                            .then(
+                                (token: string) => {
+                                    this.token = token;
+                                    resolve();
+                                }
+
+                            )
+                    }
+                )
+                .catch(
+                    error => console.log(error)
+                )
+
+        });
+        return promise;
     }
 
     logout() {

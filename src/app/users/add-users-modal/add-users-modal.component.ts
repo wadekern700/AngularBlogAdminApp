@@ -43,12 +43,12 @@ export class AddUsersModalComponent implements OnInit {
       "confirmPassword": new FormControl(null, [Validators.required])
     }, { validator: this.MustMatch('password', 'confirmPassword') });
 
-    // if (this.editMode) {
-    //   this.Email.setValidators([Validators.required, Validators.email]);
-    //   this.Email.disable();
-    //   this.Password.setValidators(null);
-    //   this.ConfirmPassword.setValidators(null);
-    // }
+    if (this.editMode) {
+      this.Email.setValidators([Validators.required, Validators.email]);
+      this.Email.disable();
+      this.Password.setValidators(null);
+      this.ConfirmPassword.setValidators(null);
+    }
   }
   get FirstName() {
     if (this.userForm)
@@ -91,7 +91,7 @@ export class AddUsersModalComponent implements OnInit {
     }
     else {
 
-      this.authService.signupUser(this.Email.value, this.Password.value)
+
       const use = new Users(this.FirstName.value, this.LastName.value, this.Email.value, this.Password.value);
       this.usersService.addUser(use);
 

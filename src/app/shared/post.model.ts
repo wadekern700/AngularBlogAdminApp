@@ -10,4 +10,5 @@ export class Posts {
         this.blogPost = blogPost;
         this.imgRef = imgRef;
     }
+
 }

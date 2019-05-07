@@ -44,13 +44,8 @@ export class AddPostModalComponent implements OnInit {
 
       const today = new Date(Date.now()).toLocaleDateString();
       var id = 0;
-      if (this.postService.getPosts()) {
-        id = this.postService.getPosts().length + 1;
-      }
-      else {
-        id = 1;
-      }
-      let postPosts = new Posts(id, this.form.value.title, this.form.value.category, today, uploadSnapshot.toString(), this.form.value.editor1);
+
+      let postPosts = new Posts(null, this.form.value.title, this.form.value.category, today, uploadSnapshot.toString(), this.form.value.editor1);
       postPosts = JSON.parse(JSON.stringify(postPosts));
       this.postService.updatePosts(postPosts)
       this.modalRef.hide();

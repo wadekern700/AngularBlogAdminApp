@@ -1,6 +1,6 @@
 <div class="modal-header bg-success text-white">
   <h5 class="modal-title ">
-    {{title}}</h5>
+    {{buttonText}}</h5>
   <a class="close btn-outline-success" style="cursor:pointer" (click)="close()"><span>&times;</span></a>
 </div>
 <form [formGroup]="loginForm" (ngSubmit)="onSub()">
@@ -17,11 +17,26 @@
       <span class="help-block" *ngIf="password.errors!=null &&  password.invalid  && password.touched ">Password
         required</span>
     </div>
+
+    <div class="form-group" [hidden]="!register">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" class="form-control">
+      <span class="help-block"
+        *ngIf="ConfirmPassword!=null && ConfirmPassword.errors!=null && ConfirmPassword.errors['mustMatch']  && ConfirmPassword.touched ">Password
+        does not match</span>
+      <br />
+      <span class="help-block"
+        *ngIf=" ConfirmPassword!=null && ConfirmPassword.errors!=null && ConfirmPassword.errors['required']  && ConfirmPassword.touched ">Password
+        required</span>
+    </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-warning" type="submit" [disabled]="!loginForm.valid" data-dissmiss="modal">
-      Login
+
+    <button class="btn btn-warning mr-auto" type="submit" [disabled]="!loginForm.valid" data-dissmiss="modal">
+      {{buttonText}}
     </button>
-    <span class="help-block" *ngIf="loginFailed">Login Failed</span>
+    <small class="text-muted">Login/Register</small>
+    <input type="checkbox" (change)="loginModeChanged()" />
+    <span class=" help-block " *ngIf="loginFailed">Login Failed</span>
   </div>
 </form>
