@@ -1,17 +1,16 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Users } from './users.model';
-import { resolve } from 'q';
 import { Category } from './category.model';
-import { catchError, map } from 'rxjs/operators';
+import { retry, catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Posts } from './post.model';
 import *  as firebase from 'firebase';
-import { promise } from 'protractor';
 @Injectable({ providedIn: 'root' })
 
 export class DataStorageService {
+
     constructor(private http: HttpClient, private authService: AuthService
     ) { }
 
@@ -65,12 +64,39 @@ export class DataStorageService {
 
     getPosts() {
         return this.http.get<Posts[]>('http://localhost:8080/posts/api').pipe(
-            map((results => { console.log(results); return results; })),
+            map((results => {
+                console.log(results);
+                results.map((ps: any) => {
+
+                    ps.category = ps.category.name;
+
+                    return ps;
+                })
+                console.log(results);
+                return results;
+            })),
             catchError((err => {
                 return throwError(new Error(err));
             })));
     }
 
+    // updatePosts(p: any, id: string) {
+    //     return this.http.patch('http://localhost:8080/posts/api/update', p, { params: new HttpParams().set('id', id) }).pipe(
+    //         map((results => {
+    //             console.log(results);
+    //             results.map((ps: any) => {
+
+    //                 ps.category = ps.category.name;
+
+    //                 return ps;
+    //             })
+    //             console.log(results);
+    //             return results;
+    //         })),
+    //         catchError((err => {
+    //             return throwError(new Error(err));
+    //         })));
+    // }
     addPosts(posts: Posts[]) {
 
         console.log(posts);
@@ -85,14 +111,25 @@ export class DataStorageService {
             }))
         );
     }
-    otherthing(post: Posts) {
-        const req = new HttpRequest('PATCH', 'https://recipe-ae463.firebaseio.com/posts/0/.json', { params: new HttpParams().set('post', post[0]) })
+    updatePost(post: any, id: string) {
+
+
+
+        console.log(post);
+        const req = new HttpRequest('POST', "http://localhost:8080/posts/api/update", post)
         return this.http.request(req).pipe(
             catchError((err => {
                 console.log(err);
                 return throwError(new Error(err));
             }))
         );
+    }
+    deletePost(id: string) {
+        console.log("in delete post");
+        this.http.delete("http://localhost:8080/posts/api/delete/" + id).subscribe();
+
+
+
     }
     // curl -X PATCH -d '{"last":"Jones"}' \
     // 'https://[PROJECT_ID].firebaseio.com/users/jack/name/.json'
@@ -112,5 +149,17 @@ export class DataStorageService {
 
         return promise;
 
+    }
+    handleError(error) {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+            // client-side error
+            errorMessage = `Error: ${error.error.message}`;
+        } else {
+            // server-side error
+            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        }
+        window.alert(errorMessage);
+        return throwError(errorMessage);
     }
 }

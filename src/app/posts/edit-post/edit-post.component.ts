@@ -26,6 +26,7 @@ export class EditPostComponent implements OnInit {
     this.categories = this.categoryService.getCategories();
   }
   initForm() {
+    console.log(this.post);
     this.EditPostForm = new FormGroup({
       'title': new FormControl(this.post.title, Validators.required),
       'category': new FormControl(this.post.category, Validators.required),
@@ -34,11 +35,15 @@ export class EditPostComponent implements OnInit {
   }
   onSub() {
     console.log(this.post)
-    this.postService.updatePost(this.EditPostForm.value, this.post.id)
-    //  this.router.navigate(['/']);
+    console.log(this.EditPostForm);
+    this.post.blogPost = this.EditPostForm.value.blogPost;
+    this.post.category = this.EditPostForm.value.category;
+    this.post.title = this.EditPostForm.value.title;
+    this.postService.updatePost(this.post, this.post.id)
+    this.router.navigate(['/dashboard']);
   }
   onDelete() {
-    this.postService.deletePost(this.post.id)
-    this.router.navigate(['/']);
+    this.postService.deletePost(this.post.id.toString())
+
   }
 }

@@ -37,7 +37,7 @@ export class AddPostModalComponent implements OnInit {
     // fd.append('image', img, img.name);
     // this.httpCLient.post('https://recipe-ae463.firebaseio.com/posters', fd).subscribe(res => console.log(res));
     // // );
-    var postPosts: Posts;
+
     this.dataService.uploadPostPicture(this.selectedImg).then((uploadSnapshot) => {
       console.log("in the post add img")
       console.log(uploadSnapshot)
@@ -50,7 +50,8 @@ export class AddPostModalComponent implements OnInit {
       else {
         id = 1;
       }
-      postPosts = new Posts(id, this.form.value.title, this.form.value.category, today, uploadSnapshot.toString(), this.form.value.editor1);
+      let postPosts = new Posts(id, this.form.value.title, this.form.value.category, today, uploadSnapshot.toString(), this.form.value.editor1);
+      postPosts = JSON.parse(JSON.stringify(postPosts));
       this.postService.updatePosts(postPosts)
       this.modalRef.hide();
     });

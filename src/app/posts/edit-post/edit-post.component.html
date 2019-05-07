@@ -10,7 +10,7 @@
           <button type="submit" class="btn btn-success btn-block"><i class="fas fa-check"></i>Save Chanes</button>
         </div>
         <div class="col-md-3">
-          <a href="#" (click)="onDelete()" class="btn btn-danger btn-block"><i class="fas fa-trash"></i>Delete Post</a>
+          <a (click)="onDelete()" class="btn btn-danger btn-block"><i class="fas fa-trash"></i>Delete Post</a>
         </div>
 
       </div>
@@ -32,7 +32,8 @@
               </div>
               <div class="form-group">
                 <label for="Category">Category</label>
-                <select class="form-control" name="category" id="category" formControlName="category">
+                <select class="form-control" [(ngModel)]="post.category" name="category" id="category"
+                  formControlName="category">
                   <option *ngFor="let cat of categories" value={{cat.title}}>{{cat.title}}</option>
                 </select>
               </div>
@@ -43,7 +44,8 @@
                   <label for="file" class="custom-file-label">Choose File</label>
                 </div>
                 <small class="form-text text-muted d-inline "> Max Size 3mb</small>
-                <small class="form-text text-muted d-inline ml-3"> <a target="_blank" href={{post.img}}>View Photo</a>
+                <small class="form-text text-muted d-inline ml-3"> <a target="_blank" href={{post.imgRef}}>View
+                    Photo</a>
                 </small>
               </div>
               <div class="form-group">
