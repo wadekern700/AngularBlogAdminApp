@@ -38,7 +38,7 @@ export class UsersService {
     addUser(User: Users) {
         this.users.push(User);
         this.userEvent.next(this.users.slice())
-        this.dataStorage.storeUsers(this.users.slice()).subscribe(
+        this.dataStorage.storeUsers(User).subscribe(
             e => console.log("Adding Users Was A success"),
             x => console.log("Adding Users caused an error " + x)
         );
@@ -51,12 +51,22 @@ export class UsersService {
     }
     editUser(User: Users) {
 
-        const number = this.users.findIndex(x => x.email === User.email);
+        const number = this.users.findIndex(x => x.id === User.id);
         this.users[number].email = User.email;
-        this.users[number].firstName = User.firstName;
-        this.users[number].lastName = User.lastName;
-        this.userEvent.next(this.users.slice())
+        this.users[number].firstname = User.firstname;
+        this.users[number].lastname = User.lastname;
+        this.userEvent.next(this.users.slice());
+
+        this.dataStorage.updateUsers(User).subscribe(
+            e => console.log("Updating Users Was A success"),
+            x => console.log("Updating Users caused an error " + x)
+        );
 
     }
+    deleteUser(id: string) {
 
+        const number = this.users.findIndex(x => x.id === id);
+        this.users.splice(number, 1);
+        this.dataStorage.deleteUsers(id);
+    }
 }

@@ -18,8 +18,8 @@
           <input type="text" [(ngModel)]="searchValue" placeholder="Search Users By..." class="form-control">
           <div class="div-input-group-append">
             <select [(ngModel)]="searchTitle" class="form-control bg-primary text-white">
-              <option selected="selected" value="firstName">First Name</option>
-              <option value="lastName">Last Name</option>
+              <option selected="selected" value="firstname">First Name</option>
+              <option value="lastname">Last Name</option>
               <option value="email">Email</option>
             </select>
           </div>
@@ -59,12 +59,12 @@
               </thead>
               <tbody>
                 <tr *ngFor="let user of users | searchPipe:searchTitle:searchValue ">
-                  <td>{{user.firstName}}</td>
-                  <td>{{user.lastName}}</td>
+                  <td>{{user.firstname}}</td>
+                  <td>{{user.lastname}}</td>
                   <td>{{user.email}}</td>
                   <td><button class="btn btn-success m-1" (click)="edit(user.email)"><i
                         class="fas fa-angle-double-right"></i>Edit</button>
-                    <button class="btn btn-danger m-1" (click)="delete(user.email)"><i
+                    <button class="btn btn-danger m-1" (click)="delete(user.id)"><i
                         class="fas fa-trash-alt"></i>Delete</button>
                   </td>
                 </tr>

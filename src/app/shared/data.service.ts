@@ -14,10 +14,10 @@ export class DataStorageService {
     constructor(private http: HttpClient, private authService: AuthService
     ) { }
 
-    storeUsers(User: Users[]) {
+    storeUsers(User: Users) {
         console.log(User);
 
-        const req = new HttpRequest('PUT', 'https://recipe-ae463.firebaseio.com/users.json', User,
+        const req = new HttpRequest('POST', "http://localhost:8080/api/authors", User,
             {
                 reportProgress: true
             });
@@ -29,13 +29,27 @@ export class DataStorageService {
     }
 
     getUsers() {
-        return this.http.get<Users[]>('https://recipe-ae463.firebaseio.com/users.json').pipe(
+        return this.http.get<Users[]>('http://localhost:8080/api/authors').pipe(
             map((results => { console.log(results); return results; })),
             catchError((err => {
                 return throwError(new Error(err));
             })));
     }
 
+    deleteUsers(id: String) {
+        this.http.delete("http://localhost:8080/api/authors/delete/" + id).subscribe();
+    }
+
+    updateUsers(user: Users) {
+        console.log(user);
+        const req = new HttpRequest('PUT', "http://localhost:8080/api/authors", user)
+        return this.http.request(req).pipe(
+            catchError((err => {
+                console.log(err);
+                return throwError(new Error(err));
+            }))
+        );
+    }
     addCategories(categories: Category[]) {
 
         console.log(categories);
@@ -48,6 +62,7 @@ export class DataStorageService {
         );
     }
 
+
     getCategories() {
         return this.http.get<Category[]>('https://recipe-ae463.firebaseio.com/categories.json').pipe(
             map((results => {
@@ -55,25 +70,6 @@ export class DataStorageService {
 
                 return results;
 
-            })),
-            catchError((err => {
-                return throwError(new Error(err));
-            })));
-    }
-
-
-    getPosts() {
-        return this.http.get<Posts[]>('http://localhost:8080/posts/api').pipe(
-            map((results => {
-                console.log(results);
-                results.map((ps: any) => {
-
-                    ps.category = ps.category.name;
-
-                    return ps;
-                })
-                console.log(results);
-                return results;
             })),
             catchError((err => {
                 return throwError(new Error(err));
@@ -97,11 +93,19 @@ export class DataStorageService {
     //             return throwError(new Error(err));
     //         })));
     // }
-    addPosts(posts: Posts[]) {
+
+    getPosts() {
+        return this.http.get<Posts[]>('http://localhost:8080/posts/api').pipe(
+            map((results => { console.log(results); return results; })),
+            catchError((err => {
+                return throwError(new Error(err));
+            })));
+    }
+    addPosts(posts: Posts) {
 
         console.log(posts);
 
-        const req = new HttpRequest('POST', 'http://localhost:8080/posts/api/addPost', posts[2]);
+        const req = new HttpRequest('POST', 'http://localhost:8080/posts/api/addPost', posts);
         console.log(req);
 
         return this.http.request(req).pipe(
@@ -112,9 +116,6 @@ export class DataStorageService {
         );
     }
     updatePost(post: any, id: string) {
-
-
-
         console.log(post);
         const req = new HttpRequest('POST', "http://localhost:8080/posts/api/update", post)
         return this.http.request(req).pipe(
@@ -126,13 +127,9 @@ export class DataStorageService {
     }
     deletePost(id: string) {
         console.log("in delete post");
+        console.log(id);
         this.http.delete("http://localhost:8080/posts/api/delete/" + id).subscribe();
-
-
-
     }
-    // curl -X PATCH -d '{"last":"Jones"}' \
-    // 'https://[PROJECT_ID].firebaseio.com/users/jack/name/.json'
     uploadPostPicture(file: File): any {
 
         const metaData = { 'contentType': file.type };
@@ -149,17 +146,5 @@ export class DataStorageService {
 
         return promise;
 
-    }
-    handleError(error) {
-        let errorMessage = '';
-        if (error.error instanceof ErrorEvent) {
-            // client-side error
-            errorMessage = `Error: ${error.error.message}`;
-        } else {
-            // server-side error
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-        }
-        window.alert(errorMessage);
-        return throwError(errorMessage);
     }
 }

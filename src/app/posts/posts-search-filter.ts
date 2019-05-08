@@ -3,7 +3,7 @@ import { Posts } from '../shared/post.model';
 
 @Pipe({
     name: 'searchPipe',
-    pure: false
+    pure: true
 
 })
 

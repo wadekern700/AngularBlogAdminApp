@@ -45,7 +45,7 @@ export class PostService {
     }
 
     deletePost(id: string) {
-        this.dataService.deletePost(id)
+
         const postIndex = this.posts.findIndex(i => i.id.toString() == id);
         this.posts.splice(postIndex, 1)
         this.postEvent.next(this.posts.slice());
@@ -66,7 +66,7 @@ export class PostService {
         // this.categoryService.updateCategoryCount(post.category);
         this.posts.push(post);
         this.postEvent.next(this.posts.slice());
-        this.dataService.addPosts(this.posts.slice()).subscribe(e => console.log("Adding Posts Was A success"), x => console.log(x));
+        this.dataService.addPosts(post).subscribe(e => console.log("Adding Posts Was A success"), x => console.log(x));
 
     }
 

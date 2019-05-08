@@ -12,10 +12,11 @@ import { HeaderService } from '../header/header.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  searchTitle = "firstName"
+  searchTitle = "firstname"
   selectedUser: Users;
   ngOnInit(): void {
     this.users = this.userService.getUsers();
+    console.log(this.users);
     this.userService.userEvent.subscribe((data) => data = this.users);
     this.headerService.pageEvent.next("users");
   }
@@ -36,5 +37,9 @@ export class UsersComponent implements OnInit {
     });
 
 
+  }
+
+  delete(id: string) {
+    this.userService.deleteUser(id)
   }
 }

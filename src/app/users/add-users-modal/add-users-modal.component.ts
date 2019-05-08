@@ -31,50 +31,45 @@ export class AddUsersModalComponent implements OnInit {
     let lastName = "";
     let email = "";
     if (this.user != null) {
-      firstName = this.user.firstName;
-      lastName = this.user.lastName;
+      firstName = this.user.firstname;
+      lastName = this.user.lastname;
       email = this.user.email;
     }
     this.userForm = this.formBuilder.group({
-      "firstName": new FormControl(firstName, Validators.required),
-      "lastName": new FormControl(lastName, Validators.required),
-      "email": new FormControl(email, [Validators.required, Validators.email, this.doesEmailExists.bind(this)]),
-      "password": new FormControl(null, [Validators.required]),
-      "confirmPassword": new FormControl(null, [Validators.required])
-    }, { validator: this.MustMatch('password', 'confirmPassword') });
+      "FirstName": new FormControl(firstName, Validators.required),
+      "LastName": new FormControl(lastName, Validators.required),
+      "Email": new FormControl(email, [Validators.required, Validators.email, this.doesEmailExists.bind(this)])
+    });
 
     if (this.editMode) {
-      this.Email.setValidators([Validators.required, Validators.email]);
-      this.Email.disable();
-      this.Password.setValidators(null);
-      this.ConfirmPassword.setValidators(null);
+      this.title = "Update User"
+    }
+    else {
+      this.title = "Save User";
     }
   }
   get FirstName() {
     if (this.userForm)
-      return this.userForm.get("firstName");
+      return this.userForm.get("FirstName");
   }
 
   get LastName() {
     if (this.userForm)
-      return this.userForm.get("lastName");
+      return this.userForm.get("LastName");
   }
   get Email() {
     if (this.userForm)
-      return this.userForm.get("email");
+      return this.userForm.get("Email");
   }
-  get Password() {
-    if (this.userForm)
-      return this.userForm.get("password");
-  }
-  get ConfirmPassword() {
-    if (this.userForm)
-      return this.userForm.get("confirmPassword");
-  }
+
 
   doesEmailExists(control: FormControl) {
     console.log(control)
+
     if (control.value != null) {
+      if (this.editMode && control.value === this.user.email) {
+        return null;
+      }
       if (this.usersService.doesEmailExists(control.value)) {
         return { "emailExists": true };
       }
@@ -85,42 +80,21 @@ export class AddUsersModalComponent implements OnInit {
   }
   onSub() {
     console.log("in sub")
+    console.log(this.userForm)
     if (this.editMode) {
-      const use = new Users(this.FirstName.value, this.LastName.value, this.Email.value, this.Password.value);
+      const use = new Users(this.user.id, this.FirstName.value, this.LastName.value, this.Email.value);
       this.usersService.editUser(use);
     }
     else {
 
 
-      const use = new Users(this.FirstName.value, this.LastName.value, this.Email.value, this.Password.value);
+      const use = new Users(null, this.FirstName.value, this.LastName.value, this.Email.value);
       this.usersService.addUser(use);
 
     }
     this.modalRef.hide();
   }
-  MustMatch(controlName: string, matchingControlName: string) {
 
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-
-      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-        // return if another validator has already found an error on the matchingControl
-        return;
-      }
-
-      // set error on matchingControl if validation fails
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ mustMatch: true });
-      } else {
-        matchingControl.setErrors(null);
-      }
-
-    }
-
-
-
-  }
   close() {
     this.modalRef.hide();
   }
