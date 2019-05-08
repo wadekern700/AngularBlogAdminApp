@@ -12,6 +12,11 @@
       <span class="help-block" *ngIf="!title.valid && title.touched">Please Enter a Title</span>
     </div>
     <div class="form-group">
+      <label for="Title">Author</label>
+      <input id="title" ngModel #author="ngModel" required name="author" type="text" class="form-control">
+      <span class="help-block" *ngIf="!author.valid && author.touched">Please Enter an author</span>
+    </div>
+    <div class="form-group">
       <label for="Category">Category</label>
       <select class="form-control" value="Health" ngModel="Health" name="category" id="category" #category="ngModel">
         <option *ngFor="let cat of categories" value={{cat.title}}>{{cat.title}}</option>

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core'
-import { Posts } from '../shared/post.model';
+import { Posts } from './post.model';
 
 @Pipe({
     name: 'searchPipe',

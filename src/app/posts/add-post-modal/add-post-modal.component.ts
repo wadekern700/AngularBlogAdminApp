@@ -6,10 +6,7 @@ import { Posts } from 'src/app/shared/post.model';
 
 import { Category } from 'src/app/shared/category.model';
 import { CategoryService } from 'src/app/shared/category.service';
-import { fbind } from 'q';
 import { HttpClient, HttpRequest } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { DataStorageService } from 'src/app/shared/data.service';
 
 @Component({
@@ -45,7 +42,7 @@ export class AddPostModalComponent implements OnInit {
       const today = new Date(Date.now()).toLocaleDateString();
       var id = 0;
 
-      let postPosts = new Posts(null, this.form.value.title, this.form.value.category, today, uploadSnapshot.toString(), this.form.value.editor1);
+      let postPosts = new Posts(null, this.form.value.title, this.form.value.category, today, uploadSnapshot.toString(), this.form.value.editor1, this.form.value.author);
       postPosts = JSON.parse(JSON.stringify(postPosts));
       this.postService.updatePosts(postPosts)
       this.modalRef.hide();

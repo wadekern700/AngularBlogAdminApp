@@ -4,7 +4,7 @@ import { UsersService } from '../shared/users.service';
 import { Users } from '../shared/users.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { AddUsersModalComponent } from './add-users-modal/add-users-modal.component';
-import { HeaderService } from '../header/header.service';
+import { HeaderService } from '../core/header/header.service';
 
 @Component({
   selector: 'app-users',

@@ -6,21 +6,22 @@ import { UsersComponent } from './users/users.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { EditPostComponent } from './posts/edit-post/edit-post.component';
 import { PostResolver } from './posts/post-resolver.service';
-import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './core/home/home.component';
 import { BlogComponent } from './blog/blog.component';
+import { AuthGuard } from './shared/auth-guard.service';
 
 const routes: Routes = [
-  { path: '', component: BlogComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'posts', component: PostsComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'categories', component: CategoriesComponent },
-  { path: 'postedit/:id', component: EditPostComponent, resolve: { posts: PostResolver } },
+  { path: '', component: HomeComponent },
+  { path: 'blog', component: BlogComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'posts', loadChildren: './posts/posts.module#PostsModule' },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'categories', component: CategoriesComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

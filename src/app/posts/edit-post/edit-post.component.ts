@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/shared/posts.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, take, first } from 'rxjs/operators'
 import { Posts } from 'src/app/shared/post.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { Category } from 'src/app/shared/category.model';
 import { CategoryService } from 'src/app/shared/category.service';
 @Component({
@@ -29,6 +27,7 @@ export class EditPostComponent implements OnInit {
     console.log(this.post);
     this.EditPostForm = new FormGroup({
       'title': new FormControl(this.post.title, Validators.required),
+      'author': new FormControl(this.post.author, Validators.required),
       'category': new FormControl(this.post.category, Validators.required),
       'blogPost': new FormControl(this.post.blogPost, Validators.required)
     });
@@ -39,6 +38,7 @@ export class EditPostComponent implements OnInit {
     this.post.blogPost = this.EditPostForm.value.blogPost;
     this.post.category = this.EditPostForm.value.category;
     this.post.title = this.EditPostForm.value.title;
+    this.post.author = this.EditPostForm.value.author;
     this.postService.updatePost(this.post, this.post.id)
     this.router.navigate(['/dashboard']);
   }

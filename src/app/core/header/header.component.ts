@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderService } from './header.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
-import { AddUsersModalComponent } from '../users/add-users-modal/add-users-modal.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
-import { AuthService } from '../shared/auth.service';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +15,7 @@ export class HeaderComponent implements OnInit {
   modalRef: BsModalRef;
   page: string = "dashboard";
   showLogin: true;
+  showDropdown = true;
   constructor(private headerService: HeaderService, private modalService: BsModalService, private authService: AuthService) { }
 
   ngOnInit() {
