@@ -50,9 +50,9 @@ export class UsersService {
     }
 
 
-    getUser(email: string) {
+    getUser(id: string) {
 
-        return this.users.find(x => x.email === email);
+        return this.users.find(x => x.id === id);
     }
     editUser(User: Users) {
 

@@ -23,10 +23,10 @@ export class UsersComponent implements OnInit {
   users: Users[];
   modalRef: BsModalRef;
   constructor(private userService: UsersService, private modalService: BsModalService, private headerService: HeaderService) { }
-  edit(email: string) {
-    console.log(email)
+  edit(id: string) {
+    console.log(id)
     console.log("in edit")
-    this.selectedUser = this.userService.getUser(email);
+    this.selectedUser = this.userService.getUser(id);
     this.modalRef = this.modalService.show(AddUsersModalComponent, {
       class: 'modal-lg', initialState: {
         title: 'Edit User',
