@@ -24,18 +24,7 @@
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown mr-3" *ngIf="!authService.isAuthenticated()">
-          <a href="" data-toggle="dropdown" class="nav-link dropdown-toggle">
-            <i class="fas fa-user">
-            </i>
-            Welcome Brad
-          </a>
-          <div class="dropdown-menu">
 
-            <a href="profile.html" class="dropdown-item"><i class="fas fa-user-circle"></i> Profile</a>
-            <a href="settings.html" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
-          </div>
-        </li>
         <li class="nav-item">
           <ng-template [ngIf]="!authService.isAuthenticated()">
             <a (click)="onRegister()" class="nav-link"> <i class="fas fa-user-times"></i>Login/Register</a>
