@@ -36,11 +36,16 @@ export class UsersService {
             return true;
     }
     addUser(User: Users) {
-        this.users.push(User);
-        this.userEvent.next(this.users.slice())
+
         this.dataStorage.storeUsers(User).subscribe(
-            e => console.log("Adding Users Was A success"),
-            x => console.log("Adding Users caused an error " + x)
+            ((e) => {
+                console.log("Adding Users Was A success");
+                console.log(e);
+                User = e;
+                this.users.push(User);
+                this.userEvent.next(this.users.slice())
+            }),
+            x => console.log(x)
         );
     }
 

@@ -25,8 +25,10 @@
     <div class="form-group">
       <label for="Img">Upload Images</label>
       <div class="custom-file">
-        <input type="file" class="custom-file-input" id="image" (change)="onFileSelected($event)">
+        <input type="file" class="custom-file-input" id="picSelector" ngModel name="picSelector" #picSelector="ngModel"
+          required (change)="onFileSelected($event)">
         <label for="file" class="custom-file-label">Choose File</label>
+        <span class="help-block" *ngIf="!picSelector.valid && picSelector.touched">Please chose a picture</span>
       </div>
       <small class="form-text text-muted"> Max Size 3mb</small>
     </div>
@@ -35,7 +37,7 @@
       <textarea name="editor1" class="form-control" required ngModel #editor1="ngModel" name="editor1">
 
         </textarea>
-      <span class="help-block" *ngIf="!editor1.valid && editor1.touched">Please Enter a Title</span>
+      <span class="help-block" *ngIf="!editor1.valid && editor1.touched">Please Enter a Blog</span>
     </div>
 
   </div>

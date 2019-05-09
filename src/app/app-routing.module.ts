@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'blog', component: BlogComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'posts', loadChildren: './posts/posts.module#PostsModule' },
+  { path: 'posts:id', loadChildren: './posts/posts.module#PostsModule' },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'categories', component: CategoriesComponent, canActivate: [AuthGuard] }
 ];

@@ -44,7 +44,7 @@ export class AddPostModalComponent implements OnInit {
 
       let postPosts = new Posts(null, this.form.value.title, this.form.value.category, today, uploadSnapshot.toString(), this.form.value.editor1, this.form.value.author);
       postPosts = JSON.parse(JSON.stringify(postPosts));
-      this.postService.updatePosts(postPosts)
+      this.postService.addPost(postPosts)
       this.modalRef.hide();
     });
 

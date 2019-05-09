@@ -44,6 +44,6 @@ export class EditPostComponent implements OnInit {
   }
   onDelete() {
     this.postService.deletePost(this.post.id.toString())
-
+    this.router.navigate(['/dashboard']);
   }
 }

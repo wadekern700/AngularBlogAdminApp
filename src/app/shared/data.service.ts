@@ -17,15 +17,20 @@ export class DataStorageService {
     storeUsers(User: Users) {
         console.log(User);
 
-        const req = new HttpRequest('POST', "http://localhost:8080/api/authors", User,
-            {
-                reportProgress: true
-            });
-        return this.http.request(req).pipe(
+        // const req = new HttpRequest('POST', "http://localhost:8080/api/authors", User);
+        // return this.http.request(req).pipe(
+        //     map((response: Response) => { console.log(response.json) }),
+        //     catchError((err => {
+        //         return throwError(new Error(err));
+        //     }))
+        // );
+
+        return this.http.post<Users>('http://localhost:8080/api/authors', User).pipe(
+            map((results) => { console.log(results); User.id = results.id; return User; }),
             catchError((err => {
+                console.log(err);
                 return throwError(new Error(err));
-            }))
-        );
+            })));
     }
 
     getUsers() {
@@ -104,17 +109,16 @@ export class DataStorageService {
     addPosts(posts: Posts) {
 
         console.log(posts);
-
-        const req = new HttpRequest('POST', 'http://localhost:8080/posts/api/addPost', posts);
-        console.log(req);
-
-        return this.http.request(req).pipe(
+        return this.http.post<Posts>('http://localhost:8080/posts/api/addPost', posts).pipe(
+            map((results) => { console.log(results); posts.id = results.id; return posts; }),
             catchError((err => {
                 console.log(err);
                 return throwError(new Error(err));
-            }))
-        );
+            })));
     }
+
+
+
     updatePost(post: any, id: string) {
         console.log(post);
         const req = new HttpRequest('POST', "http://localhost:8080/posts/api/update", post)

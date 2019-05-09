@@ -4,13 +4,19 @@ import { PostsComponent } from './posts.component';
 import { AuthGuard } from '../shared/auth-guard.service';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { PostResolver } from './post-resolver.service';
+import { PoststartComponent } from './poststart/poststart.component';
 
 const postRoutes: Routes = [
+
+    // { path: '', component: PostsComponent, canActivate: [AuthGuard] },
+    // { path: 'postedit/:id', component: EditPostComponent, canActivate: [AuthGuard], resolve: { posts: PostResolver } }
     {
-        path: '', component: PostsComponent, canActivate: [AuthGuard], children: [
-            { path: 'postedit/:id', component: EditPostComponent, canActivate: [AuthGuard], resolve: { posts: PostResolver } },
+        path: '', component: PoststartComponent, canActivate: [AuthGuard], children: [
+            { path: '', component: PostsComponent },
+            { path: ':id', component: EditPostComponent, canActivate: [AuthGuard], resolve: { posts: PostResolver } }
         ]
     },
+
 ];
 
 @NgModule({

@@ -61,14 +61,18 @@ export class PostService {
         return this.postEvent.asObservable();
     }
 
-    updatePosts(post: Posts) {
-        console.log(post);
-        // this.categoryService.updateCategoryCount(post.category);
-        this.posts.push(post);
-        this.postEvent.next(this.posts.slice());
-        this.dataService.addPosts(post).subscribe(e => console.log("Adding Posts Was A success"), x => console.log(x));
+    addPost(post: Posts) {
 
+        this.dataService.addPosts(post).subscribe(
+            ((e) => {
+                console.log("Adding Posts Was A success");
+                console.log(e);
+                post = e;
+                this.posts.push(post);
+                this.postEvent.next(this.posts.slice());
+            }),
+            x => console.log(x)
+        );
     }
-
 }
 
